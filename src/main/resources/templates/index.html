@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="/fragements/head :: head"></head>
+
+  <body>
+    <div th:replace="/fragements/navbar :: navbar"></div>
+	  <main>
+        <div class="container-fluid row">
+            <div classs="col-md-10">
+                <center>
+                  <div class="blogcard" th:each="blog: ${blogs}">
+                    <div class="meta">
+                        <div class="photo">
+                            <img th:src="${blog.getImage()}" alt="${blog.title}">
+                        </div>
+                        <ul class="details">
+                          <li class="author" th:text="'by ' + ${blog.getAuthorId().name}"></li>
+                          <li class="date" th:text="${#dates.format(blog.getCreationDate(),'dd-MM-yyyy')}"></li>
+                        </ul>
+                    </div>
+                    <div class="description">
+                        <h1>
+                          <a th:href="@{'/blog/' + ${blog.getId()}}" th:text="${blog.getTitle()}"></a>
+                        </h1>
+                        <p class="content" th:text="${#strings.substring(blog.getContent(),0,120)} + '...' "></p>
+                        <p class="readMore">
+                          <a th:href="@{'/blog/' + ${blog.getId()}}">Read More</a>
+                        </p>
+                    </div>
+                  </div>
+                </center>
+            </div>
+        </div>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </main>
+  </body>
+</html>
